@@ -1,11 +1,16 @@
 Package: rdkafka
 Type: Package
-Title: What the Package Does (Title Case)
+Title: R wrapper for librdkafka
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Maintainer: Li Gen <libingfei@sina.com>
+Description: Provides an implementation of the Producer and Consumer clients using the Apache Kafka protocol through the C library librdkafka. 
+             See <https://kafka.apache.org/> and <https://github.com/confluentinc/librdkafka> and <https://github.com/confluentinc/librdkafka> for more information.
+Authors@R: c(person("Li", "Gen", email = "libingfei@sina.com", role = c("aut", "cre")))
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends: 
+  R (>= 4.2.0),
+  R6 (>= 2.5.1),
+  Rcpp (>= 1.0.14)
+RoxygenNote: 7.3.0

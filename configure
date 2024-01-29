@@ -1,0 +1,43 @@
+#!/usr/bin/env sh
+
+PKG_DEB_NAME="librdkafka-dev"
+PKG_RPM_NAME="librdkafka-devel"
+PKG_OSX_NAME="librdkafka"
+
+msg=0
+NORDKAFKA=1
+pkg-config --version >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+  echo "*** pkg-config is not installed."
+  msg=1
+else
+  pkg-config --exists rdkafka++
+  if [ $? -ne 0 ]; then
+    echo "*** pkg-config is installed but 'pkg-config --exists rdkafka++' did not return 0."
+    msg=1
+  else
+    NORDKAFKA=0
+    RDKAFKA_LIB=`pkg-config --libs rdkafka++`
+  fi
+fi
+
+if [ $msg -ne 0 ]; then
+  echo "------------------------- ANTICONF ERROR ---------------------------"
+  echo "Configuration failed because pkg-config or rdkafka++ was not found. Try installing:"
+  echo "***   deb: $PKG_DEB_NAME pkg-config (Debian, Ubuntu, ...)"
+  echo "***   rpm: $PKG_RPM_NAME pkg-config (Fedora, CentOS, ...)"
+  echo "***   There is a $PKG_OSX_NAME pkg-config in brew for OSX"
+  echo "*** To silence this message, please ensure that :"
+  echo "***   1) 'pkg-config --version' succeeds (i.e. \$? -ne 0)"
+  echo "***   2) 'pkg-config --exists rdkafka++' succeeds (i.e. \$? -eq 0)"
+  echo "***   3) 'pkg-config --libs rdkafka++' is similar to -L/usr/local/lib -lrdkafka++"
+else
+  version=`pkg-config --modversion rdkafka++`
+  echo "rdkafka++ ${version} is available: OK"
+  echo "Using PKG_LIBS=$RDKAFKA_LIB"
+fi
+
+sed -e "s|@rdkafka_libs@|$RDKAFKA_LIB|" src/Makevars.in > src/Makevars
+
+
+exit 0

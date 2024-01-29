@@ -9,8 +9,11 @@ Authors@R: c(person("Li", "Gen", email = "libingfei@sina.com", role = c("aut", "
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+LinkingTo: 
+  Rcpp
 Depends: 
   R (>= 4.2.0),
-  R6 (>= 2.5.1),
-  Rcpp (>= 1.0.14)
-RoxygenNote: 7.3.0
+  R6 (>= 2.5.1)
+RoxygenNote: 7.3.1
+Imports: 
+    Rcpp
